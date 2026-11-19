@@ -5,4 +5,4 @@
 build/
 Debug/
 Release/
-*.project --- IGNORE ---
+*.project 

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="Assigment_2" Version="11000">
-  <Description/>
-  <VirtualDirectory Name="src">
-    <File Name="src/main.cpp"/>
-    <File Name="src/main.hpp"/>
-  </VirtualDirectory>
-  <Dependencies/>
-</CodeLite_Project>
