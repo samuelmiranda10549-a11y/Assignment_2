@@ -1,10 +1,10 @@
-#include "main.hpp"
+#include "Core.hpp"
 
-main::main()
+int main()
 {
-}
+    Core* c = new Core();
+    c->start();
+    delete c;
 
-main::~main()
-{
+    return 0;
 }
-
