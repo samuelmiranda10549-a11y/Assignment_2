@@ -7,6 +7,7 @@ class Core
 {
     ConsoleIO* con;
 
+    void stage1(std::string img_name);
 public:
     Core();
     ~Core();
