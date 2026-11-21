@@ -1,15 +1,18 @@
 #include "Core.hpp"
-#include <iostream>
 
 Core::Core()
 {
+    con = new ConsoleIO();
 }
 
 Core::~Core()
 {
+    delete con;
 }
 
 void Core::start()
 {
-    std::cout << "Hello World" << std::endl;
+    con->printString("Enter image name: ");
+    std::string img_name = con->readString();
+    con->printString(img_name);
 }
