@@ -2,6 +2,14 @@
 #include "TinyImageJM.hpp"
 #include "RGBPixelXY.hpp"
 
+/* DS implementation notes:
+ * One of the lessons we learned in the first assignment is consistency in data structure usage.
+ * especially about whether a data structure should delete its elements, I argue no, since the user of a DS
+ * may not want so, this has been the source of several double-frees and use-after-frees problems. So,
+ * on destruction, a DS should not free the elements, they should be freed by the DS user to maintain modularity
+ * and consistency.
+ */
+
 Core::Core()
 {
     con = new ConsoleIO();

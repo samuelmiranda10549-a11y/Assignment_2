@@ -3,12 +3,14 @@
 List::List()
 {
     head = nullptr;
+    end = nullptr; // insertRear in a loop with n elements
+                   // is too slow (O(n^2)) without a pointer to the end
     var_length = 0;
 }
 
 List::~List()
 {
-    //makenull();
+    makenull();
 }
 
 void List::insert(ListNode* node, RGBPixelXY* data)
@@ -31,6 +33,11 @@ void List::insert(ListNode* node, RGBPixelXY* data)
     if (head == nullptr)
     {
         head = new_node;
+    }
+
+    if (end == node)
+    {
+        end = node; // If inserting at end, this is the new end of list
     }
 }
 
@@ -62,10 +69,26 @@ void List::insertRear(RGBPixelXY* data)
     {
         var_length++;
         head = new ListNode(data);
+        end = head;
     }
     else
     {
-        // The last index of a list is one less than the length
-        insert(retrieveNode(var_length - 1), data);
+        insert(end, data);
     }
+}
+
+void List::makenull()
+{
+    ListNode* curr = head;
+
+    while (curr != nullptr)
+    {
+        ListNode* tmp_next = curr->getNext();
+        delete curr;
+        curr = tmp_next;
+    }
+
+    var_length = 0;
+    head = nullptr;
+    end = nullptr;
 }
