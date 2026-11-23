@@ -48,9 +48,27 @@ List* Core::stage1_create_pixel_list(TinyImageJM* img)
     return pixel_list;
 }
 
+Stack* Core::stage1_create_stack(List* pixel_list)
+{
+    // DS A
+    // The pixel list is already in sequential order
+    Stack* s = new Stack();
+
+    for (unsigned int pixel_index = 0; pixel_index < pixel_list->length(); pixel_index++)
+    {
+        s->push(pixel_list->retrieve(pixel_index));
+    }
+
+    return s;
+}
+
 void Core::stage1(std::string img_name)
 {
-    // stage2 needs all of the data structures returned
+    // stage2 needs all of the data structures returned (also for modularity)
+    // The only way to return multiple values in C++ without a list is with a pointer parameter
+    // so the called function can set the value. List cannot be used because it's only valid for
+    // one data type.
+    // Source: https://www.geeksforgeeks.org/c/how-to-return-multiple-values-from-a-function-in-c-or-cpp/
     TinyImageJM* img = new TinyImageJM(img_name);
 
     if (img->loadImageFromDisk())
@@ -58,6 +76,8 @@ void Core::stage1(std::string img_name)
         // Load to a single RGBPixel list for simplicity and insert to all data structures from the list to
         // avoid duplicating the same loop to insert into different data structures
         List* pixel_list = stage1_create_pixel_list(img);
+
+        Stack* DS_A = stage1_create_stack(pixel_list);
 
         delete pixel_list;
     }

@@ -10,6 +10,7 @@ class Core
     ConsoleIO* con;
 
     List* stage1_create_pixel_list(TinyImageJM* img);
+    Stack* stage1_create_stack(List* pixel_list);
     void stage1(std::string img_name);
 public:
     Core();
