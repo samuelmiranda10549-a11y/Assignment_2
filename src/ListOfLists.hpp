@@ -2,7 +2,7 @@
 #define LISTOFLISTS_HPP
 
 #include "ListOfListsNode.hpp"
-#include "RGBPixelXY.hpp"
+#include "List.hpp"
 
 class ListOfLists
 {
@@ -15,9 +15,9 @@ public:
     ListOfLists();
     ~ListOfLists();
 
-    void insert(ListOfListsNode* node, RGBPixelXY* data);
-    RGBPixelXY* retrieve(unsigned int index);
-    void insertRear(RGBPixelXY* data);
+    void insert(ListOfListsNode* node, List* data);
+    List* retrieve(unsigned int index);
+    void insertRear(List* data);
     unsigned int length();
     void makenull();
 };

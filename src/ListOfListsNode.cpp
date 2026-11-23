@@ -1,6 +1,6 @@
 #include "ListOfListsNode.hpp"
 
-ListOfListsNode::ListOfListsNode(RGBPixelXY* pdata)
+ListOfListsNode::ListOfListsNode(List* pdata)
 {
     data = pdata;
     next = nullptr;
@@ -16,7 +16,7 @@ void ListOfListsNode::setNext(ListOfListsNode* pnext)
     next = pnext;
 }
 
-RGBPixelXY* ListOfListsNode::getData()
+List* ListOfListsNode::getData()
 {
     return data;
 }

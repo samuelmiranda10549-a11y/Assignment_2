@@ -1,20 +1,20 @@
 #ifndef LISTOFLISTSNODE_HPP
 #define LISTOFLISTSNODE_HPP
 
-#include "RGBPixelXY.hpp"
+#include "List.hpp"
 
 class ListOfListsNode
 {
-    RGBPixelXY* data;
+    List* data;
     ListOfListsNode* next;
 
 public:
-    ListOfListsNode(RGBPixelXY* pdata);
+    ListOfListsNode(List* pdata);
     ~ListOfListsNode();
 
     ListOfListsNode* getNext();
     void setNext(ListOfListsNode* pnext);
-    RGBPixelXY* getData();
+    List* getData();
 };
 
 #endif // LISTOFLISTSNODE_HPP

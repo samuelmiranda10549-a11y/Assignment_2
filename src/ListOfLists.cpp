@@ -15,7 +15,7 @@ ListOfLists::~ListOfLists()
     makenull();
 }
 
-void ListOfLists::insert(ListOfListsNode* node, RGBPixelXY* data)
+void ListOfLists::insert(ListOfListsNode* node, List* data)
 {
     var_length++;
     ListOfListsNode* new_node = new ListOfListsNode(data);
@@ -43,7 +43,7 @@ void ListOfLists::insert(ListOfListsNode* node, RGBPixelXY* data)
     }
 }
 
-RGBPixelXY* ListOfLists::retrieve(unsigned int index)
+List* ListOfLists::retrieve(unsigned int index)
 {
     return retrieveNode(index)->getData();
 }
@@ -65,7 +65,7 @@ unsigned int ListOfLists::length()
     return var_length;
 }
 
-void ListOfLists::insertRear(RGBPixelXY* data)
+void ListOfLists::insertRear(List* data)
 {
     if (head == nullptr)
     {
