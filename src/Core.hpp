@@ -4,6 +4,7 @@
 #include "ConsoleIO.hpp"
 #include "List.hpp"
 #include "TinyImageJM.hpp"
+#include "Stack.hpp"
 
 class Core
 {
