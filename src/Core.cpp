@@ -71,33 +71,50 @@ Stack* Core::stage1_create_stack(ListOfLists* pixel_list)
     return s;
 }
 
-void Core::stage1(std::string img_name)
+Stack* Core::stage1(std::string img_name, ListOfLists** out_DS_B,
+        List** out_DS_C, HashTable** out_DS_D)
 {
     // stage2 needs all of the data structures returned (also for modularity)
+    // - The first return value is DS_A (the Stack), if nullptr, it signals failure
+
     // The only way to return multiple values in C++ without a list is with a pointer parameter
     // so the called function can set the value. List cannot be used because it's only valid for
     // one data type.
     // Source: https://www.geeksforgeeks.org/c/how-to-return-multiple-values-from-a-function-in-c-or-cpp/
     TinyImageJM* img = new TinyImageJM(img_name);
+    Stack* DS_A = nullptr;
 
     if (img->loadImageFromDisk())
     {
         // Load to a single RGBPixel list for simplicity and insert to all data structures from the list to
         // avoid duplicating the same loop to insert into different data structures
-        ListOfLists* pixel_list = stage1_create_pixel_list(img);
+        ListOfLists* DS_B = stage1_create_pixel_list(img);
+        con->printString("Stage 1: DS B (List of Lists) created\n");
 
-        Stack* DS_A = stage1_create_stack(pixel_list);
+        DS_A = stage1_create_stack(DS_B);
+        con->printString("Stage 1: DS A (Stack) created\n");
 
-        delete pixel_list;
+        *out_DS_B = DS_B; // return DS_B
     }
 
     delete img;
+
+    return DS_A;
 }
 
 void Core::start()
 {
-    con->printString("Enter image name: ");
-    std::string img_name = con->readString();
+    // According to requirements, program will ask again any invalid input
+    Stack* DS_A = nullptr;
+    ListOfLists* DS_B = nullptr;
+    List* DS_C = nullptr;
+    HashTable* DS_D = nullptr;
 
-    stage1(img_name);
+    while (DS_A == nullptr)
+    {
+        con->printString("Enter image name: ");
+        std::string img_name = con->readString();
+
+        DS_A = stage1(img_name, &DS_B, &DS_C, &DS_D);
+    }
 }
