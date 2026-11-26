@@ -29,34 +29,43 @@ Core::~Core()
     delete con;
 }
 
-List* Core::stage1_create_pixel_list(TinyImageJM* img)
+ListOfLists* Core::stage1_create_pixel_list(TinyImageJM* img)
 {
-    List* pixel_list = new List();
+    ListOfLists* pixel_list = new ListOfLists();
 
     for (unsigned int row = 0; row < img->getHeight(); row++)
     {
+        List* row_list = new List();
+
         for (unsigned int col = 0; col < img->getWidth(); col++)
         {
             RGBPixelXY* pixel = new RGBPixelXY(col, row);
             pixel->getFromRaw(img->getImagePointertoInternal(),
                     img->getWidth(), img->getHeight(), col, row);
 
-            pixel_list->insertRear(pixel);
+            row_list->insertRear(pixel);
         }
+
+        pixel_list->insertRear(row_list);
     }
 
     return pixel_list;
 }
 
-Stack* Core::stage1_create_stack(List* pixel_list)
+Stack* Core::stage1_create_stack(ListOfLists* pixel_list)
 {
     // DS A
     // The pixel list is already in sequential order
     Stack* s = new Stack();
 
-    for (unsigned int pixel_index = 0; pixel_index < pixel_list->length(); pixel_index++)
+    for (unsigned int row_num = 0; row_num < pixel_list->length(); row_num++)
     {
-        s->push(pixel_list->retrieve(pixel_index));
+        List* row_list = pixel_list->retrieve(row_num);
+
+        for (unsigned int col_num = 0; col_num < row_list->length(); col_num++)
+        {
+            s->push(row_list->retrieve(col_num));
+        }
     }
 
     return s;
@@ -75,7 +84,7 @@ void Core::stage1(std::string img_name)
     {
         // Load to a single RGBPixel list for simplicity and insert to all data structures from the list to
         // avoid duplicating the same loop to insert into different data structures
-        List* pixel_list = stage1_create_pixel_list(img);
+        ListOfLists* pixel_list = stage1_create_pixel_list(img);
 
         Stack* DS_A = stage1_create_stack(pixel_list);
 

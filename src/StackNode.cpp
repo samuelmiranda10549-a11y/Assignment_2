@@ -6,6 +6,10 @@ StackNode::StackNode(RGBPixelXY* p)
     next = nullptr;
 }
 
+StackNode::~StackNode()
+{
+}
+
 StackNode* StackNode::getNext()
 {
     return next;
