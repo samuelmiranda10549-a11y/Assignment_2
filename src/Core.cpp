@@ -102,6 +102,26 @@ Stack* Core::stage1(std::string img_name, ListOfLists** out_DS_B,
     return DS_A;
 }
 
+void Core::cleanup(Stack* DS_A, ListOfLists* DS_B, List* DS_C, HashTable* DS_D)
+{
+    for (unsigned int row = 0; row < DS_B->length(); row++)
+    {
+        List* row_list = DS_B->retrieve(row);
+
+        for (unsigned int col = 0; col < row_list->length(); col++)
+        {
+            delete row_list->retrieve(col); // Delete RGBPixelXY
+        }
+
+        delete row_list;
+    }
+
+    delete DS_A;
+    delete DS_B;
+    delete DS_C;
+    delete DS_D;
+}
+
 void Core::start()
 {
     // According to requirements, program will ask again any invalid input
@@ -117,4 +137,6 @@ void Core::start()
 
         DS_A = stage1(img_name, &DS_B, &DS_C, &DS_D);
     }
+
+    cleanup(DS_A, DS_B, DS_C, DS_D);
 }

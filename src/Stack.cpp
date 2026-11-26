@@ -6,6 +6,11 @@ Stack::Stack()
     var_length = 0; 
 }
 
+Stack::~Stack()
+{
+    makenull();
+}
+
 void Stack::push(RGBPixelXY* pixel)
 {
     var_length++;

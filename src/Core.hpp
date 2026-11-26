@@ -16,6 +16,8 @@ class Core
     Stack* stage1(std::string img_name, ListOfLists** out_DS_B,
         List** out_DS_C, HashTable** out_DS_D);
 
+    void cleanup(Stack* DS_A, ListOfLists* DS_B, List* DS_C, HashTable* DS_D);
+
 public:
     Core();
     ~Core();
